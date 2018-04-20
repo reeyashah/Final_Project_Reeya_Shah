@@ -16,80 +16,9 @@ yelp_CACHE_FNAME = 'cache_yelp.json'
 google = 'Google'
 yelp = 'Yelp'
 DBNAME = 'restaurant1.db'
-# City = 'cities.json'
-# Ratings = 'ratings.json'
-# with open('/reeyashah/dekstop/cache_google.json') as google_file:
-#     plotly_user_config = json.load(google_file)
-# url = py.plot ([
-#     {
-#         'x':[]
-#         'y':[]
-#
-# ])
-# plotly.tools.set_credentials_file(plotly_username = 'reeyashah', api_key = 'BZFKEOgD9gSKOOyafdo')
-# def plotly_ten(place, type_, keyword):
-#     conn.sqlite3.connect(DBNAME)
-#     cur = conn.cursor()
-#     ratings_list = []
-#     restuarant_list = []
-#     top_name_query = 'SELECT Google.Name FROM Google '
-#     top_name_query += "WHERE Google.Keyword = '{}' ".format(keyword)
-#     top_name_query += "AND Google.City = '{}' ".format(city_input)
-#     cur.execute(top_name_query)
-#
-#     top_ratings_query = 'SELECT Google.RATING FROM Google'
-#     top_ratings_query += "WHERE Google.Keyword = '{}' ".format(keyword)
-#     top_ratings_query += "AND Google.City = '{}' ".format(city_input)
-#     cur1.execute(top_ratings_query)
-#
-#     for restuarant in cur:
-#         restuarant_list.append(x)
-#     print(restuarant_list)
-#
-#     for rating in cur1:
-#         ratings_list.append(x)
-#     print(ratings_list)
-
-#     x = [ratings_list]
-#     y = [restuarant_list]
-#
-#
-#
-# trace1 = [go.Bar(
-#     x = ['keyword']
-#     y = [Google.rating]
-# )]
-# py.iplot(data,filename = 'doc')
-#
-# trace2 =[
 
 
 
-
-
-
-
-# conn = sqlite3.connect('restaurant.db')
-# cur = conn.cursor()
-
-# def ratings_request_using_cache(ratings_url, params):
-#     auth = OAuth2(consumer_key, consumer_secret_key, access_token, access_token_secret)
-
-
-# def get_yelp_ratings():
-#     req = requests.get("https://api.yelp.com/v3/businesses/search")
-#     soup = BeautifulSoup(req.text, "html.parser")
-#
-#     city_list = soup.find(class_="main-search_suggestions suggestions-list-container location-suggestions-list-container hidden")
-#     city_list1 = soup.find_all("li")
-#     for x in city_list1:
-#         if state_abbr.lower() in x.['data-suggest-query']:
-#             state_data = make_request_using_cache(baseurl + x.a['data-suggest-query'])
-#             state_soup = BeautifulSoup(state_data, 'html.parser')
-#             city = state_soup.find_all("ul", class_ = "item suggestion suggestions-list-item suggest-button")
-#             city_list = []
-#             for c in city_list:
-#                 city_type =
 
 def get_google_location(place, type_, keyword):
     place = place
@@ -116,13 +45,6 @@ def get_google_location(place, type_, keyword):
         # print(location)
         # exit()
 
-        # google2_url = "https://maps.googleapis.com/maps/api/name/nearbysearch/json"
-        # parameters = {'key':AIzaSyBCxtZVJwSf720P-bJBLq8dcTYJJWmtLVw, 'location' : location, 'radisu' : 1000, }
-    #      nearby_sites_list = []
-#      for x in nearby_data['results']:
-#          nearby_sites_list.append(NearbyPlace(x['name']))
-#      return nearby_sites_list
-# example = NationalSite("National Park", "Grand Canyon", "dsfd")
 
         google2_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
         parameters = {'key':'AIzaSyBCxtZVJwSf720P-bJBLq8dcTYJJWmtLVw', 'location': location, 'radius' : 1000, 'type' : type_ , 'keyword' : keyword}
@@ -254,19 +176,7 @@ def yelp_information1(place, type_, keyword = "", keyword2 = "", keyword3 = ""):
         caching(key1, restaurant_in_city1, yelp_CACHE_FNAME)
         Update_table(restaurant_in_city1[key1], yelp) #check th
         return None
-    #print(req)
-    # for x in req:
-    #     print(x)
-    # yelp_open = open(yelp_CACHE_FNAME, "w")
-    # yelp_open.write(response1)
-    # yelp_open.close()
-    # Update_table(restaurant_in_city[key], yelp)
-    # req = json.loads(response1)['businesses']
-    # print(req)
-    # exit()
-    # yelp_open = open(yelp_CACHE_FNAME, "w")
-    # yelp_open.write(response1)
-    # yelp_open.close()
+
 
 
         # return cache_part_try
@@ -309,21 +219,21 @@ def caching(key, new_cache, doc):
 
 def find_cache_info(key, doc):
     try:
-        print("trying to cache")
+        #print("trying to cache")
         writer = open(doc,"r")
         reader = writer.read()
         reader_json = json.loads(reader)
 
-        print('past json')
+        #print('past json')
 
         if key in reader_json:
-            print('passed properly')
+            #print('passed properly')
             return reader_json[key]
         else:
             reader.close()
             return None
     except:
-        print("not trying to cache")
+        #print("not trying to cache")
         return None
 
 def init_db(DBNAME):
@@ -486,9 +396,9 @@ def top_ten(user_command):
     if city_input and keyword in user_command:
         ten_statement += "FROM Google JOIN Yelp ON Google.Id = Yelp.Id WHERE Google.Keyword = '{}' ".format(keyword)
         ten_statement += " AND Google.City = '{}' ".format(city_input)
-        ten_statement += " ORDER BY Google.Rating DESC LIMIT 3"
+        ten_statement += " ORDER BY Google.Rating DESC LIMIT 5"
     ten_places = cur.execute(ten_statement)
-    print(ten_statement)
+    #print(ten_statement)
     return ten_places
     conn.commit()
     conn.close()
@@ -506,29 +416,29 @@ def top_restaurant(user_command):
     if "restaurant" == type_input:
         top_statement += "JOIN Yelp ON Google.Id = Yelp.Id WHERE Google.Type = '{}' ".format(type_input)
         top_statement += "AND Google.City = '{}' ".format(city_input)
-        top_statement += 'ORDER BY Google.Rating DESC LIMIT 3'
+        top_statement += 'ORDER BY Google.Rating DESC LIMIT 5'
     elif "bar" == type_input:
         top_statement += "JOIN Yelp ON Google.Id = Yelp.Id WHERE Google.Type = '{}' ".format(type_input)
         top_statement += "AND Google.City = '{}' ".format(city_input)
-        top_statement += 'ORDER BY Google.Rating DESC LIMIT 3'
+        top_statement += 'ORDER BY Google.Rating DESC LIMIT 5'
     elif "food" == type_input:
         top_statement += "JOIN Yelp ON Google.Id = Yelp.Id WHERE Google.Type = '{}' ".format(type_input)
         top_statement += "AND Google.City = '{}' ".format(city_input)
-        top_statement += 'ORDER BY Google.Rating DESC LIMIT 3'
+        top_statement += 'ORDER BY Google.Rating DESC LIMIT 5'
     elif "delivery" == type_input:
         top_statement += "JOIN Yelp ON Google.Id = Yelp.Id WHERE Google.Type = '{}' ".format(type_input)
         top_statement += "AND Google.City = '{}' ".format(city_input)
-        top_statement += 'ORDER BY Google.Rating DESC LIMIT 3'
+        top_statement += 'ORDER BY Google.Rating DESC LIMIT 5'
     elif "takeout" == type_input:
         top_statement += "JOIN Yelp ON Google.Id = Yelp.Id WHERE Google.Type = '{}' ".format(type_input)
         top_statement += "AND Google.City = '{}' ".format(city_input)
-        top_statement += 'ORDER BY Google.Rating DESC LIMIT 3'
+        top_statement += 'ORDER BY Google.Rating DESC LIMIT 5'
     elif "reservations" == type_input:
         top_statement += "JOIN Yelp ON Google.Id = Yelp.Id WHERE Google.Type = '{}' ".format(type_input)
         top_statement += "AND Google.City = '{}' ".format(city_input)
-        top_statement += 'ORDER BY Google.Rating DESC LIMIT 3'
+        top_statement += 'ORDER BY Google.Rating DESC LIMIT 5'
     top_places = cur.execute(top_statement).fetchall()
-    print(top_statement)
+    #print(top_statement)
     return top_places
     conn.commit()
     conn.close()
@@ -542,14 +452,14 @@ def top_city(user_command):
     get_google_location(full_location, type_input, keyword)
     yelp_information(full_location, type_input, keyword)
     city_input = full_command_split[0]
-    city_statement = 'SELECT Google.City, Google.Type, AVG(Google.RATING) AS average FROM Google '
+    city_statement = 'SELECT Google.City, Google.Name, AVG(Google.RATING) AS average FROM Google '
     if type_input and city_input in user_command:
         city_statement += " JOIN Yelp ON Google.Id = Yelp.Id WHERE Google.Type = '{}' ".format(type_input)
         city_statement += "AND Google.City = '{}' ".format(city_input)
         city_statement += "AND Google.Keyword = '{}' ".format(keyword)
-        city_statement += " ORDER BY Google.Rating DESC LIMIT 3"
+        city_statement += " ORDER BY Google.Rating DESC LIMIT 5"
     city_places = cur.execute(city_statement)
-    print(city_statement)
+    #print(city_statement)
     return(city_places)
     conn.commit()
     conn.close()
@@ -575,7 +485,7 @@ def average_three_types(user_command):
             three_statement += "GROUP BY Google.Keyword "
             three_statement += "ORDER BY Google.RATING DESC"
     else:
-        print('this did not work111')
+        print('this did not work')
 
     three_places = cur.execute(three_statement)
     #print(three_statement)
@@ -598,9 +508,9 @@ def count_three(user_command):
     count_statement = 'SELECT Google.City, Google.Keyword, COUNT(Google.Keyword) as Count FROM Google '
     if len(full_command_split) == 6:
         if full_command_split[-1].strip() == keyword:
-            print('yes!')
+            # print('yes!')
             if full_command_split[4].strip() == keyword2:
-                print('yay!')
+                # print('yay!')
                 if full_command_split[3].strip() == keyword3:
                     count_statement += "JOIN Yelp ON Google.Id = Yelp.Id "
                     count_statement += "WHERE Google.Keyword IN ('{}', '{}', '{}') ".format(keyword3, keyword2, keyword)
@@ -611,7 +521,7 @@ def count_three(user_command):
     else:
         print('this did not work')
     count_places = cur.execute(count_statement)
-    print(count_statement)
+    #print(count_statement)
     return count_places
     conn.commit()
     conn.close()
@@ -622,7 +532,7 @@ def plotly_ten(user_command):
     cur = conn.cursor()
     cur1 = conn.cursor()
     full_command_split = user_command.split(',')
-    print(full_command_split)
+    #print(full_command_split)
     full_location = str(full_command_split[0].strip() +  ", " + full_command_split[1].strip())
     #print(full_location)
     type_input = full_command_split[2].strip()
@@ -636,28 +546,28 @@ def plotly_ten(user_command):
     top_name_query += 'JOIN Yelp on Google.Id = Yelp.Id '
     top_name_query += "WHERE Google.Keyword = '{}' ".format(keyword)
     top_name_query += "AND Google.City = '{}' ".format(city_input)
-    top_name_query += "ORDER BY Google.Rating DESC LIMIT 3"
+    top_name_query += "ORDER BY Google.Rating DESC LIMIT 5"
     cur.execute(top_name_query)
-    print(top_name_query)
+    #print(top_name_query)
 
 
     top_ratings_query = 'SELECT Google.RATING FROM Google '
     top_ratings_query += 'JOIN Yelp on Google.Id = Yelp.Id '
     top_ratings_query += "WHERE Google.Keyword = '{}' ".format(keyword)
     top_ratings_query += "AND Google.City = '{}' ".format(city_input)
-    top_ratings_query += "ORDER BY Google.Rating DESC LIMIT 3"
+    top_ratings_query += "ORDER BY Google.Rating DESC LIMIT 5"
     cur1.execute(top_ratings_query)
 
 
     for restaurant in cur:
-        print(restaurant)
+        #print(restaurant)
         restaurant_list.append(restaurant[0])
-    print(restaurant_list)
+    #print(restaurant_list)
 
     for rating in cur1:
-        print(rating)
+        #print(rating)
         ratings_list.append(rating[0])
-    print(ratings_list)
+    #print(ratings_list)
 
     trace0 = go.Bar(
         x = restaurant_list,
@@ -697,7 +607,7 @@ def plotly_top_restaurant(user_command):
     top_name_query1 += 'JOIN Yelp on Google.Id = Yelp.Id '
     top_name_query1 += "WHERE Google.Type = '{}' ".format(type_input)
     top_name_query1 += "AND Google.City = '{}' ".format(city_input)
-    top_name_query1 += "ORDER BY Google.Rating DESC LIMIT 3"
+    top_name_query1 += "ORDER BY Google.Rating DESC LIMIT 5"
     #top_name_query1 += "ORDER BY Google.RATING DESC LIMIT 10"
     cur.execute(top_name_query1)
 
@@ -705,7 +615,7 @@ def plotly_top_restaurant(user_command):
     top_ratings_query1 += 'JOIN Yelp on Google.Id = Yelp.Id '
     top_ratings_query1 += "WHERE Google.Type = '{}' ".format(type_input)
     top_ratings_query1 += "AND Google.City = '{}' ".format(city_input)
-    top_ratings_query1 += "ORDER BY Google.Rating DESC LIMIT 3"
+    top_ratings_query1 += "ORDER BY Google.Rating DESC LIMIT 5"
     #top_ratings_query1 += "ORDER BY Google.RATING DESC LIMIT 10"
     cur1.execute(top_ratings_query1)
 
@@ -755,7 +665,7 @@ def plotly_city(user_command):
     # city_query1 += "WHERE Google.Type = '{}' ".format(type_input)
     city_query1 += "AND Google.City = '{}' ".format(city_input)
     city_query1 += "AND Google.Keyword = '{}' ".format(keyword)
-    city_query1 += "ORDER BY Google.Rating DESC LIMIT 3"
+    city_query1 += "ORDER BY Google.Rating DESC LIMIT 5"
     #top_name_query1 += "ORDER BY Google.RATING DESC LIMIT 10"
     cur.execute(city_query1)
 
@@ -763,18 +673,18 @@ def plotly_city(user_command):
     city_ratings_query1 += 'JOIN Yelp on Google.Id = Yelp.Id '
     city_ratings_query1 += "WHERE Google.Type = '{}' ".format(type_input)
     city_ratings_query1 += "AND Google.City = '{}' ".format(city_input)
-    city_ratings_query1 += "ORDER BY Google.Rating DESC LIMIT 3"
+    city_ratings_query1 += "ORDER BY Google.Rating DESC LIMIT 5"
     #top_ratings_query1 += "ORDER BY Google.RATING DESC LIMIT 10"
     cur1.execute(city_ratings_query1)
 
 
     for rating in cur1:
         ratings_list2.append(rating[0])
-    print(ratings_list2)
+    #print(ratings_list2)
 
     for restaurant in cur:
         restaurant_list2.append(restaurant[0])
-    print(restaurant_list2)
+    #print(restaurant_list2)
     trace6 = go.Bar(
         x = restaurant_list2,
         y = ratings_list2,
@@ -801,8 +711,8 @@ def plotly_average_three(user_command):
     cur = conn.cursor()
     cur1 = conn.cursor()
     full_command_split = user_command.split(',')
-    print(type(full_command_split))
-    print(full_command_split)
+    #print(type(full_command_split))
+    #print(full_command_split)
     full_location = ", ".join([full_command_split[0].strip(),full_command_split[1].strip()])
 
     type_input = full_command_split[2].strip()
@@ -819,7 +729,7 @@ def plotly_average_three(user_command):
     keyword_query += "WHERE Google.Keyword IN ('{}', '{}', '{}') ".format(keyword3, keyword2, keyword)
     keyword_query += "AND Google.City = '{}' ".format(city_input)
     keyword_query += "GROUP BY Google.Keyword"
-    print(keyword_query)
+    #print(keyword_query)
     cur.execute(keyword_query)
 
     average_ratings_query = 'SELECT AVG(Google.RATING) AS average FROM Google '
@@ -828,16 +738,16 @@ def plotly_average_three(user_command):
     average_ratings_query += "AND Google.City = '{}' ".format(city_input)
     average_ratings_query += 'GROUP BY Google.Keyword '
     average_ratings_query += 'ORDER BY Google.RATING DESC'
-    print(average_ratings_query)
+    #print(average_ratings_query)
     cur1.execute(average_ratings_query)
 
     for keyword in cur:
         keyword_list.append(keyword[0])
-    print(keyword_list)
+    #print(keyword_list)
 
     for rating in cur1:
         ratings_list2.append(rating[0])
-    print(ratings_list2)
+    #print(ratings_list2)
 
     trace2 = go.Bar(
         x = keyword_list,
@@ -881,7 +791,7 @@ def plotly_count(user_command):
     keyword_query1 += "AND Google.City = '{}' ".format(city_input)
     keyword_query1 += "GROUP BY Google.Keyword"
     cur.execute(keyword_query1)
-    print(keyword_query1)
+    #print(keyword_query1)
 
     count_query = 'SELECT COUNT(Google.Keyword) FROM Google '
     count_query += 'JOIN Yelp on Google.Id = Yelp.Id '
@@ -889,15 +799,15 @@ def plotly_count(user_command):
     count_query += "AND Google.City = '{}' ".format(city_input)
     count_query += 'GROUP BY Google.Keyword '
     cur1.execute(count_query)
-    print(count_query)
+    #print(count_query)
 
     for keyword in cur:
         keyword_list1.append(keyword[0])
-    print(keyword_list1)
+    #print(keyword_list1)
 
     for count in cur1:
         count_list.append(count[0])
-    print(count_list)
+    #print(count_list)
 
     trace3 = go.Bar(
         x = keyword_list1,
@@ -943,7 +853,7 @@ def interactive_prompt():
             print('bye')
             exit()
         full_command_split = user_command.split(',')
-        print(user_command)
+        #print(user_command)
 
         if len(full_command_split) == 4:
             full_location = ", ".join([full_command_split[0].strip(),full_command_split[1].strip()])
@@ -953,11 +863,11 @@ def interactive_prompt():
             yelp_information(full_location, type_input, keyword)
             city_input = full_command_split[0]
             if keyword in keyword_types:
-                answer= input('Do you want to see the top 3 names based on keyword, type, or both?')
+                answer= input('Do you want to see the top 5 names based on keyword, type, or both?')
                 if answer == 'keyword':
                     x = top_ten(user_command)
                     for part in x:
-                        print('{0:60} {1:50} {2:50}'.format(part[0], part[1], part[2]))
+                        print('{0:50} {1:40} {2:30}'.format(part[0], part[1], part[2]))
                     answer = input('Do you want to see the graph?')
                     if answer == 'yes':
                         plotly_ten(user_command)
@@ -968,7 +878,7 @@ def interactive_prompt():
                     if type_input == 'restaurant':
                         x = top_restaurant(user_command)
                         for part in x:
-                            print('{0:60} {1:50} {2:50}'.format(part[0], part[1], part[2]))
+                            print('{0:50} {1:40} {2:30}'.format(part[0], part[1], part[2]))
                         answer = input('Do you want to see the graph?')
                         if answer == 'yes':
                             plotly_top_restaurant(user_command)
@@ -978,7 +888,7 @@ def interactive_prompt():
                     elif type_input == 'bar':
                         x = top_restaurant(user_command)
                         for part in x:
-                            print('{0:60} {1:50} {2:50}'.format(part[0], part[1], part[2]))
+                            print('{0:50} {1:40} {2:30}'.format(part[0], part[1], part[2]))
                         answer = input('Do you want to see the graph?')
                         if answer == 'yes':
                             plotly_top_restaurant(user_command)
@@ -988,7 +898,7 @@ def interactive_prompt():
                     elif type_input == 'food':
                         x = top_restaurant(user_command)
                         for part in x:
-                            print('{0:60} {1:50} {2:50}'.format(part[0], part[1], part[2]))
+                            print('{0:50} {1:40} {2:30}'.format(part[0], part[1], part[2]))
                         answer = input('Do you want to see the graph?')
                         if answer == 'yes':
                             plotly_top_restaurant(user_command)
@@ -998,7 +908,7 @@ def interactive_prompt():
                     elif type_input == 'delivery':
                         x = top_restaurant(user_command)
                         for part in x:
-                            print('{0:60} {1:50} {2:50}'.format(part[0], part[1], part[2]))
+                            print('{0:50} {1:40} {2:30}'.format(part[0], part[1], part[2]))
                         answer = input('Do you want to see the graph?')
                         if answer == 'yes':
                             plotly_top_restaurant(user_command)
@@ -1008,7 +918,7 @@ def interactive_prompt():
                     elif type_input == 'takeout':
                         x = top_restaurant(user_command)
                         for part in x:
-                            print('{0:60} {1:50} {2:50}'.format(part[0], part[1], part[2]))
+                            print('{0:50} {1:40} {2:30}'.format(part[0], part[1], part[2]))
                         answer = input('Do you want to see the graph?')
                         if answer == 'yes':
                             plotly_top_restaurant(user_command)
@@ -1018,7 +928,7 @@ def interactive_prompt():
                     elif type_input == 'reservations':
                         x = top_restaurant(user_command)
                         for part in x:
-                            print('{0:60} {1:50} {2:50}'.format(part[0], part[1], part[2]))
+                            print('{0:50} {1:40} {2:30}'.format(part[0], part[1], part[2]))
                         answer = input('Do you want to see the graph?')
                         if answer == 'yes':
                             plotly_top_restaurant(user_command)
@@ -1031,7 +941,7 @@ def interactive_prompt():
                 elif answer == 'both':
                     x = top_city(user_command)
                     for part in x:
-                        print('{0:60} {1:50} {2:50}'.format(part[0], part[1], part[2]))
+                        print('{0:50} {1:40} {2:30}'.format(part[0], part[1], part[2]))
                     answer = input('Do you want to see the graph?')
                     if answer == 'yes':
                         plotly_city(user_command)
@@ -1056,18 +966,13 @@ def interactive_prompt():
             get_google_location1(full_location, type_input, keyword, keyword2, keyword3)
             yelp_information1(full_location, type_input, keyword, keyword2, keyword3)
             city_input = full_command_split[0]
-            # if len(full_command_split) == 0:
-            #     print('You entered an empty command, please enter a valid command')
-            #     continue
-            # elif city_input.isdigit():
-            #     user_command = input("You entered a numerical digit, please enter a valid command")
-            #     continue
+
             if keyword in keyword_types and keyword2 in keyword_types and keyword3 in keyword_types:
                 answer = input("Do you want to see the average ratings or counts for the keyword you entered?")
                 if answer == 'average ratings':
                     x = average_three_types(user_command)
                     for part in x:
-                        print('{0:60} {1:50} {2:50}'.format(part[0], part[1], part[2]))
+                        print('{0:50} {1:40} {2:30}'.format(part[0], part[1], part[2]))
                     answer = input('Do you want to see the graph?')
                     if answer == 'yes':
                         plotly_average_three(user_command)
@@ -1077,7 +982,7 @@ def interactive_prompt():
                 elif answer == 'counts':
                     x = count_three(user_command)
                     for part in x:
-                        print('{0:60} {1:50} {2:50}'.format(part[0], part[1], part[2]))
+                        print('{0:50} {1:40} {2:30}'.format(part[0], part[1], part[2]))
                     answer = input('Do you want to see the graph?')
                     if answer == 'yes':
                         plotly_count(user_command)
@@ -1090,8 +995,7 @@ def interactive_prompt():
 
             else:
                 print("Command not recognized: ", user_command)
-        #elielse:f len(full_command_split) != 4 and len(full_command_split) != 6:
-            #print("Command not recognized: ", user_command)
+
         else:
             print("Command not recognized: ", user_command)
 
