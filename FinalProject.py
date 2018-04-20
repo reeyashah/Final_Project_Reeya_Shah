@@ -750,7 +750,7 @@ def plotly_city(user_command):
     city_input = full_command_split[0]
     restaurant_list2 = []
     ratings_list2 = []
-    city_query1 = 'SELECT Google.Type FROM Google '
+    city_query1 = 'SELECT Google.Name FROM Google '
     city_query1 += 'JOIN Yelp on Google.Id = Yelp.Id '
     # city_query1 += "WHERE Google.Type = '{}' ".format(type_input)
     city_query1 += "AND Google.City = '{}' ".format(city_input)
