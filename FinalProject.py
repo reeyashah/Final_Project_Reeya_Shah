@@ -863,7 +863,7 @@ def interactive_prompt():
             yelp_information(full_location, type_input, keyword)
             city_input = full_command_split[0]
             if keyword in keyword_types:
-                answer= input('Do you want to see the top 5 names based on keyword, type, or both?')
+                answer= input('Do you want to see the top name based on keyword, type, or both?')
                 if answer == 'keyword':
                     x = top_ten(user_command)
                     for part in x:
