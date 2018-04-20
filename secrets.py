@@ -1,0 +1,6 @@
+google_api_key = 'AIzaSyAy38J_SVOACLb_PGl9HMe6EYDT3sSYnzA'
+consumer_key = 'xtQwGt4xMaoGcvcqZbnsIgqWA'
+consumer_secret_key = 'TJWj7gzeazJlYxGszbT7yooGOC1qMQRyS1WZ5q97Zo4ZefDssd'
+access_token = '568684526-LDsBEDuEWHQUfCND22RAE9MGwigAc5E82sqZbSXN'
+access_token_secret = 'glAQo9UiuHgky6RanJc9cWOut4Sbuf46SUF0aGdfoV2Cy'
+yelp_api_key = 'EW5S0NEsEkQG-DCg8zMhjZvESXDJW0wWaP51OovBxHn0c-osGHe1Ni9ws7LVISMTzAvZvmhBRXQJdkcugR'
