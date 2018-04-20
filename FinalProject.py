@@ -33,7 +33,7 @@ def get_google_location(place, type_, keyword):
     if cache_part_try != None:
         return None
     else:
-        print('requesting new data')
+        #print('requesting new data')
 
         google_url = "https://maps.googleapis.com/maps/api/place/textsearch/json"
         parameters = {'key': secrets.google_api_key, 'query': place}
@@ -80,7 +80,7 @@ def get_google_location1(place, type_, keyword, keyword2, keyword3):
     if cache_part_try1 != None:
         return None
     else:
-        print('requesting new data')
+        #print('requesting new data')
 
         google_url = "https://maps.googleapis.com/maps/api/place/textsearch/json"
         parameters = {'key': secrets.google_api_key, 'query': place}
@@ -183,7 +183,7 @@ def yelp_information1(place, type_, keyword = "", keyword2 = "", keyword3 = ""):
 
 def caching(key, new_cache, doc):
     try:
-        print("cache new part")
+        #print("cache new part")
         reader = open(doc, "r")
         data = reader.read()
         reader.close()
